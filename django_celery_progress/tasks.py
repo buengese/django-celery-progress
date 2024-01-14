@@ -59,11 +59,3 @@ def remove_old_tasks():
         pk__in=to_remove.values_list("pk", flat=True)
     ).delete()
     return f"{count} task(s) removed."
-
-
-@shared_task(bind=True, name="my_task")
-def my_task(self):
-    for i in range(15):
-        time.sleep(1)
-        set_progress(self, i + 1, 15)
-    return "Task completed successfully."
